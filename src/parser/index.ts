@@ -1,9 +1,11 @@
 /**
- * Parser module — Fase 2
+ * Parser module — public API
  *
- * This module will contain the SwiftUI lexer and parser.
- * Implementation is deferred to Phase 2.
+ * Exports all types, the Lexer, the Parser, and the high-level SwiftUIParser facade.
  */
 
-// Phase 2 exports will be added here
-export {}
+export * from './types'
+export { Lexer } from './lexer'
+export { Parser } from './parser'
+export { SwiftUIParser } from './swiftui-parser'
+

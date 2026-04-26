@@ -4,6 +4,17 @@ All notable changes to the "open-swift-ui-preview" extension will be documented 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.2.0] — 2026-04-26
+
+### Added
+
+- Motor de Parsing (Fase 2)
+- Types para AST y Component Tree (`src/parser/types.ts`)
+- Lexer sin Regex dependiente de AST (`src/parser/lexer.ts`)
+- Parser recursivo de descenso con recuperación de error natural (`src/parser/parser.ts`)
+- Fachada SwiftUIParser y extractor de componentes (`src/parser/swiftui-parser.ts`)
+- Pruebas exhaustivas para lexer, parser y fachada con Jest (80%+ de cobertura de código)
+
 ## [0.1.0] — 2026-04-26
 
 ### Added
