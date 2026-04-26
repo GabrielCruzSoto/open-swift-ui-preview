@@ -2,7 +2,7 @@
   "name": "open-swift-ui-preview",
   "displayName": "OpenSUI",
   "description": "",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "engines": {
     "vscode": "^1.116.0"
   },
@@ -16,12 +16,17 @@
       {
         "command": "open-swift-ui-preview.helloWorld",
         "title": "Hello World"
+      },
+      {
+        "command": "opensui.helloWorld",
+        "title": "OpenSUI: Hello World"
       }
     ]
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
     "compile": "npm run check-types && npm run lint && node esbuild.js",
+    "dev": "npm run watch",
     "watch": "npm-run-all -p watch:*",
     "watch:esbuild": "node esbuild.js --watch",
     "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
