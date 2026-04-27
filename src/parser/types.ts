@@ -131,7 +131,7 @@ export interface SwiftUIComponent {
   properties: Record<string, PropertyValue>
   modifiers: Modifier[]
   children: SwiftUIComponent[]
-  sourceLocation: {
+  sourceLocation?: {
     line: number
     column: number
   }

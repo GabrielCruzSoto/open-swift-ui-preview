@@ -4,6 +4,16 @@ All notable changes to the "open-swift-ui-preview" extension will be documented 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.3.0] — 2026-04-26
+
+### Added
+
+- Motor de Renderizado (Fase 3)
+- Soporte para renderizado en Canvas vía `node-canvas`
+- `layout-engine.ts` para estimación posicional jerárquica de interfaces gráficas.
+- `component-mapper.ts` para conversión de UI Modifiers de SwiftUI a directivas Canvas/CSS.
+- `canvas-renderer.ts` y `device-frame.ts` para serialización de buffers y renderizado estético.
+
 ## [0.2.0] — 2026-04-26
 
 ### Added
