@@ -9,18 +9,22 @@ import { SwiftUIParser } from '../parser/swiftui-parser'
 import { LayoutEngine } from '../renderer/layout-engine'
 import { CanvasRenderer } from '../renderer/canvas-renderer'
 import { DeviceFrame } from '../renderer/device-frame'
+import { DeviceSelector } from './device-selector'
+import { DEFAULT_DEVICE } from './device-models'
 
 export class PreviewPanel {
   private static currentPanel: PreviewPanel | undefined
   private readonly panel: vscode.WebviewPanel
   private disposables: vscode.Disposable[] = []
   private currentSourceCode: string = ''
+  private deviceSelector: DeviceSelector
 
   private constructor(
     panel: vscode.WebviewPanel,
     private extensionUri: vscode.Uri
   ) {
     this.panel = panel
+    this.deviceSelector = new DeviceSelector(DEFAULT_DEVICE)
 
     this.panel.onDidDispose(() => this.dispose(), null, this.disposables)
 
@@ -61,6 +65,10 @@ export class PreviewPanel {
     return PreviewPanel.currentPanel
   }
 
+  public getDeviceSelector(): DeviceSelector {
+    return this.deviceSelector
+  }
+
   public async updatePreview(sourceCode: string): Promise<void> {
     this.currentSourceCode = sourceCode
     await this.render()
@@ -75,21 +83,30 @@ export class PreviewPanel {
         throw new Error('No SwiftUI component found in file')
       }
 
+      const currentDevice = this.deviceSelector.getCurrentDevice()
       const layoutEngine = new LayoutEngine()
-      const layoutTree = layoutEngine.computeLayout(componentTree)
+      const layoutTree = layoutEngine.computeLayout(
+        componentTree,
+        currentDevice.screenWidth,
+        currentDevice.screenHeight
+      )
 
       if (!layoutTree) {
         throw new Error('Failed to compute layout')
       }
 
       const canvasRenderer = new CanvasRenderer()
-      const imageBuffer = canvasRenderer.render(layoutTree, 393, 852)
+      const imageBuffer = canvasRenderer.render(
+        layoutTree,
+        currentDevice.screenWidth,
+        currentDevice.screenHeight
+      )
 
       const finalImage = DeviceFrame.attachFrame(imageBuffer, false)
 
       const base64Image = finalImage.toString('base64')
 
-      this.panel.webview.html = this.getWebviewContent(base64Image)
+      this.panel.webview.html = this.getWebviewContent(base64Image, currentDevice.name)
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : String(error)
       this.panel.webview.html = this.getErrorWebviewContent(errorMessage)
@@ -103,12 +120,18 @@ export class PreviewPanel {
         this.render()
         break
       case 'deviceChanged':
-        // Handle device change (to be implemented in Fase 5)
+        if (message.data && typeof message.data === 'string') {
+          this.deviceSelector.selectDeviceById(message.data).then((success) => {
+            if (success) {
+              this.render()
+            }
+          })
+        }
         break
     }
   }
 
-  private getWebviewContent(imageBase64: string): string {
+  private getWebviewContent(imageBase64: string, deviceName: string): string {
     return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -146,7 +169,7 @@ export class PreviewPanel {
 <body>
   <div class="preview-container">
     <img class="preview-image" src="data:image/png;base64,${imageBase64}" alt="SwiftUI Preview" />
-    <div class="status">Preview updated</div>
+    <div class="status">Device: ${deviceName} | Preview updated</div>
   </div>
   <script>
     const vscode = acquireVsCodeApi();

@@ -50,11 +50,22 @@ export class ExtensionIntegration {
     )
     context.subscriptions.push(toggleCmd)
 
-    // Select Device command (placeholder for Fase 5)
+    // Select Device command
     const selectDeviceCmd = vscode.commands.registerCommand(
       COMMANDS.SELECT_DEVICE,
       async () => {
-        vscode.window.showInformationMessage('Device selection will be implemented in Fase 5')
+        if (!this.previewPanel) {
+          vscode.window.showWarningMessage('No preview panel is open')
+          return
+        }
+
+        const deviceSelector = this.previewPanel.getDeviceSelector()
+        const selectedDevice = await deviceSelector.show()
+
+        if (selectedDevice) {
+          await this.previewPanel.updatePreview(this.previewPanel['currentSourceCode'])
+          vscode.window.showInformationMessage(`Device changed to ${selectedDevice.name}`)
+        }
       }
     )
     context.subscriptions.push(selectDeviceCmd)

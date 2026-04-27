@@ -4,6 +4,23 @@ All notable changes to the "open-swift-ui-preview" extension will be documented 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.5.0] — 2026-04-26
+
+### Added
+
+- Dispositivos y UI (Fase 5)
+- `src/vscode/device-models.ts` con DeviceModel interface y constantes para iPhone 15/16/17 series
+- `src/vscode/device-selector.ts` para selección de dispositivos mediante QuickPick
+- `assets/device-frames/` con estructura de directorios para marcos PNG de dispositivos
+- Integración de DeviceSelector en PreviewPanel para renderizado con dimensiones específicas
+- Integración de comando SELECT_DEVICE en ExtensionIntegration
+- Tests para device models en `tests/vscode/device-selector.test.ts`
+
+### Changed
+
+- PreviewPanel ahora usa dimensiones del dispositivo seleccionado para layout y renderizado
+- WebView muestra nombre del dispositivo actual en el status
+
 ## [0.4.0] — 2026-04-26
 
 ### Added
