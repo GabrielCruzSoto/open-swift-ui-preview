@@ -4,6 +4,24 @@ All notable changes to the "open-swift-ui-preview" extension will be documented 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.4.0] — 2026-04-26
+
+### Added
+
+- Integración VS Code (Fase 4)
+- `src/vscode/commands.ts` con definición de comandos (START_PREVIEW, STOP_PREVIEW, SELECT_DEVICE, TOGGLE_PREVIEW)
+- `src/vscode/preview-panel.ts` para gestión de WebView panel con renderizado de preview
+- `src/vscode/file-watcher.ts` para detección de cambios en archivos con debounce de 500ms
+- `src/vscode/extension.ts` como integración principal que coordina comandos, panel y file watcher
+- Actualización de `src/main.ts` para usar ExtensionIntegration
+- Tests básicos para módulos VS Code en `tests/vscode/`
+- Configuración de esbuild para excluir módulos nativos (canvas)
+
+### Changed
+
+- Actualizado `esbuild.js` para marcar `canvas` como módulo externo
+- Actualizado `jest.config.js` para incluir setup file de tests
+
 ## [0.3.0] — 2026-04-26
 
 ### Added

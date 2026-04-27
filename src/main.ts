@@ -1,4 +1,5 @@
 import * as vscode from 'vscode'
+import { ExtensionIntegration } from './vscode/extension'
 
 /**
  * OpenSUI Extension — Entry point
@@ -7,14 +8,12 @@ import * as vscode from 'vscode'
 export function activate(context: vscode.ExtensionContext): void {
   console.log('OpenSUI is now active!')
 
-  const disposable = vscode.commands.registerCommand(
-    'opensui.helloWorld',
-    () => {
-      vscode.window.showInformationMessage('OpenSUI Hello World!')
-    }
-  )
+  const extensionUri = context.extensionUri
+  const integration = new ExtensionIntegration(extensionUri)
 
-  context.subscriptions.push(disposable)
+  integration.registerCommands(context)
+
+  context.subscriptions.push(integration)
 }
 
 export function deactivate(): void {}

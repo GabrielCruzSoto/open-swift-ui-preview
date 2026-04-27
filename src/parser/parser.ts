@@ -307,7 +307,7 @@ export class Parser {
         }
       } else {
         const val = this.parseExpression()
-        if (val) args.push(val)
+        if (val) {args.push(val)}
       }
 
       if (this.match(TokenType.COMMA)) {

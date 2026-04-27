@@ -4,6 +4,7 @@ module.exports = {
   roots: ['<rootDir>/tests', '<rootDir>/src'],
   testMatch: ['<rootDir>/tests/**/*.test.ts'],
   testPathIgnorePatterns: ['<rootDir>/tests/basic.test.ts'],
+  setupFiles: ['<rootDir>/tests/setup.ts'],
   collectCoverageFrom: [
     'src/parser/**/*.ts',
     '!src/parser/index.ts',
