@@ -1,71 +1,89 @@
-# open-swift-ui-preview README
+# OpenSUI
 
-This is the README for your extension "open-swift-ui-preview". After writing up a brief description, we recommend including the following sections.
+OpenSUI is a Visual Studio Code extension that provides real-time SwiftUI preview without requiring Xcode or Apple hardware. It enables iOS developers to preview SwiftUI views directly in VS Code on Windows, Linux, and macOS.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- **Real-time SwiftUI Preview**: See your SwiftUI views update as you type
+- **Device Frame Selection**: Preview on iPhone 15, 16, and 17 series devices
+- **Multi-platform Support**: Works on Windows, Linux, and macOS
+- **Custom Rendering Engine**: No Xcode dependency - uses a custom parser and renderer
+- **File Watching**: Automatic preview updates when files change
+- **Performance Optimized**: Fast parsing with memoization and efficient rendering
 
-For example if there is an image subfolder under your extension project workspace:
+## Supported SwiftUI Components
 
-\!\[feature X\]\(images/feature-x.png\)
+- **Layout**: VStack, HStack, ZStack, Spacer
+- **Text**: Text
+- **Controls**: Button, Toggle, Slider, TextField, Picker
+- **Containers**: List, ScrollView, NavigationStack, TabView
+- **Multimedia**: Image
+- **Structure**: Divider
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+## Installation
+
+### From VS Code Marketplace
+
+```bash
+ext install opensui.preview
+```
+
+### From Source
+
+```bash
+git clone https://github.com/GabrielCruzSoto/open-swift-ui-preview.git
+cd open-swift-ui-preview
+npm install
+npm run build
+```
+
+## Usage
+
+1. Open a SwiftUI file (`.swift`) in VS Code
+2. Run the command `OpenSUI: Start Preview` from the Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P`)
+3. The preview panel will appear showing your SwiftUI view
+4. To change the device, run `OpenSUI: Select Device`
+5. To stop the preview, run `OpenSUI: Stop Preview` or close the preview panel
+
+## Commands
+
+- `OpenSUI: Start Preview` - Start the SwiftUI preview for the current file
+- `OpenSUI: Stop Preview` - Stop the current preview
+- `OpenSUI: Toggle Preview` - Toggle the preview on/off
+- `OpenSUI: Select Device` - Select a device for preview (iPhone 15/16/17 series)
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+- Node.js 20 or higher
+- VS Code 1.86.0 or higher
+- A Swift file with SwiftUI code
 
-## Extension Settings
+## Development
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup and guidelines.
 
-For example:
+## Architecture
 
-This extension contributes the following settings:
+OpenSUI consists of three main modules:
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+1. **Parser Engine** (`src/parser/`): Tokenizes and parses SwiftUI code into an AST
+2. **Renderer Engine** (`src/renderer/`): Computes layout and renders to canvas
+3. **VS Code Integration** (`src/vscode/`): Manages WebView panel, file watching, and commands
 
-## Known Issues
+## Performance
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+- Parseo simple: < 100ms
+- Parseo complejo: < 500ms
+- Layout simple: < 50ms
+- Layout complejo: < 200ms
+- Renderizado simple: < 500ms
+- Renderizado complejo: < 2000ms
+- Pipeline completo: < 3000ms
 
-## Release Notes
+## License
 
-Users appreciate release notes as you update your extension.
+MIT
 
-### 1.0.0
+## Contributing
 
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

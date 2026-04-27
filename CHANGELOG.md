@@ -4,6 +4,26 @@ All notable changes to the "open-swift-ui-preview" extension will be documented 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [1.0.0] — 2026-04-26
+
+### Added
+
+- Complete SwiftUI preview functionality
+- Parser engine with lexer, parser, and SwiftUI analyzer
+- Renderer engine with layout computation and canvas rendering
+- Device selector supporting iPhone 15/16/17 series
+- Real-time file watching with 300ms debounce
+- WebView panel for preview display
+- VS Code integration with commands
+- Performance optimization with parser memoization
+- CI/CD pipeline with GitHub Actions
+- Comprehensive documentation (README, CONTRIBUTING)
+- Performance benchmarks
+
+### Changed
+
+- Initial stable release
+
 ## [0.6.0] — 2026-04-26
 
 ### Added
