@@ -38,11 +38,35 @@ const MODIFIER_NAMES: Set<string> = new Set([
  * and walks the resulting AST to produce a SwiftUIComponentTree.
  */
 export class SwiftUIParser {
+  private cache = new Map<string, SwiftUIComponentTree>()
+  private readonly maxCacheSize = 100
+
   /**
    * Parse SwiftUI source code and return a component tree.
    * Never throws – errors are contained inside the returned tree.
+   * Uses memoization to cache parsed results.
    */
   parse(sourceCode: string): SwiftUIComponentTree {
+    const cached = this.cache.get(sourceCode)
+    if (cached) {
+      return cached
+    }
+
+    const result = this.parseInternal(sourceCode)
+
+    // Cache the result (LRU eviction if cache is full)
+    if (this.cache.size >= this.maxCacheSize) {
+      const firstKey = this.cache.keys().next().value
+      if (firstKey) {
+        this.cache.delete(firstKey)
+      }
+    }
+    this.cache.set(sourceCode, result)
+
+    return result
+  }
+
+  private parseInternal(sourceCode: string): SwiftUIComponentTree {
     try {
       const lexer = new Lexer(sourceCode)
       const tokens = lexer.tokenize()

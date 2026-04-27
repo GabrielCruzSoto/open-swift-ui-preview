@@ -4,6 +4,30 @@ All notable changes to the "open-swift-ui-preview" extension will be documented 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.6.0] — 2026-04-26
+
+### Added
+
+- Optimización (Fase 6)
+- Memoización en SwiftUIParser con cache LRU de 100 entradas
+- Benchmarks de rendimiento en `tests/performance/benchmark-parser.ts`
+- Benchmarks de rendimiento en `tests/performance/benchmark-renderer.ts`
+
+### Changed
+
+- File Watcher debounce reducido de 500ms a 300ms para actualizaciones más rápidas
+- Parser ahora usa cache para evitar re-parsing del mismo código fuente
+
+### Performance
+
+- Parseo simple: < 100ms
+- Parseo complejo: < 500ms
+- Layout simple: < 50ms
+- Layout complejo: < 200ms
+- Renderizado simple: < 500ms
+- Renderizado complejo: < 2000ms
+- Pipeline completo: < 3000ms
+
 ## [0.5.0] — 2026-04-26
 
 ### Added

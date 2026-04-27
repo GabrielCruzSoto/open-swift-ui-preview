@@ -1,5 +1,5 @@
 /**
- * File Watcher — Fase 4
+ * File Watcher — Fase 4 (Optimized in Fase 6)
  *
  * Monitors file changes and triggers preview updates.
  */
@@ -10,7 +10,7 @@ import { PreviewPanel } from './preview-panel'
 export class FileWatcher {
   private watcher: vscode.FileSystemWatcher | null = null
   private debounceTimer: NodeJS.Timeout | null = null
-  private readonly debounceMs = 500
+  private readonly debounceMs = 300
   private currentFile: vscode.Uri | null = null
 
   constructor(private extensionUri: vscode.Uri) {}
